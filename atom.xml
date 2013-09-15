@@ -4,7 +4,7 @@
   <title><![CDATA[linkkingjay's blog]]></title>
   <link href="http://linkkingjay.github.io/atom.xml" rel="self"/>
   <link href="http://linkkingjay.github.io/"/>
-  <updated>2013-09-15T19:18:47+08:00</updated>
+  <updated>2013-09-15T19:50:56+08:00</updated>
   <id>http://linkkingjay.github.io/</id>
   <author>
     <name><![CDATA[linkkingjay]]></name>
@@ -12,64 +12,5 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[《写给大家看的设计书》笔记]]></title>
-    <link href="http://linkkingjay.github.io/blog/2013/08/13/design-book-note/"/>
-    <updated>2013-08-13T19:28:00+08:00</updated>
-    <id>http://linkkingjay.github.io/blog/2013/08/13/design-book-note</id>
-    <content type="html"><![CDATA[<h2>设计的四大原则：</h2>
-
-<ul>
-<li><strong>亲密性</strong></li>
-<li><strong>对比</strong></li>
-<li><strong>重复</strong></li>
-<li><strong>对齐</strong></li>
-</ul>
-
-
-<h2>亲密性</h2>
-
-<h3>原则：将相关的项组织在一起。</h3>
-
-<p>如果多个项之相互之间存在很近的亲密性，它们将成为一个视觉单元，而不是多个孤立的元素。</p>
-
-<h3>如何实现</h3>
-
-<p>微微眯起眼睛，统计你的眼睛停顿的次数来数一数页面上有多少个元素。如果页面上的元素超过3~5个（当然，这取决于具体情况），就要看看哪些孤立的元素可以归在一组建立更近的亲密性，使之成为一个视觉单元。</p>
-
-<h3>要避免的问题</h3>
-
-<ul>
-<li>不要仅仅因为有空白就把元素放在角落或中央。</li>
-<li>避免一个页面上有太多孤立元素。</li>
-<li>不要在元素之间流出同样大小的空白，除非各组同属于一个子集。</li>
-<li>不同属一组的元素之间不要建立关系！如果元素彼此无关，要把它们分开。</li>
-</ul>
-
-
-<h2>对齐</h2>
-
-<h3>原则：任何元素都不能在页面上随意安放。每一项都应当与页面上的某个内容存在某种视觉联系。</h3>
-
-<p>在设计中，<strong>统一性</strong>是一个重要的概念。要让页面上的所有元素看上去统一、有联系而且彼此相关，需要在各个独立的元素之间存在某种视觉枢纽。尽管这些孤立元素在页面上的无力位置可能并不靠近，但是通过适当放置，可以让它们看上去是有联系而且相关的，并且与其他信息统一。</p>
-
-<h3>如何实现</h3>
-
-<p>要特别注意元素放在哪里。应当总能在页面上找出与之对齐的元素，尽管这两个对象物理位置可能相距很远。</p>
-
-<h3>要避免的问题</h3>
-
-<ul>
-<li>不要在页面上混合使用多种文本对齐方式。</li>
-<li>要着力避免居中堆砌，除非你有意识地想要创建一种比较正式、稳重的表示。</li>
-</ul>
-
-
-<h2>重复</h2>
-
-<h3>原则：设计的某些方面需要在整个作品中重复。</h3>
-]]></content>
-  </entry>
   
 </feed>
