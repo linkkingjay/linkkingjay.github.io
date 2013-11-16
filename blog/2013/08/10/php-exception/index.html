@@ -1,109 +1,102 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[linkkingjay's blog]]></title>
-  <link href="http://linkkingjay.github.io/atom.xml" rel="self"/>
-  <link href="http://linkkingjay.github.io/"/>
-  <updated>2013-11-16T18:36:43+08:00</updated>
-  <id>http://linkkingjay.github.io/</id>
-  <author>
-    <name><![CDATA[linkkingjay]]></name>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>PHP中的异常 - linkkingjay's blog</title>
+  <meta name="author" content="linkkingjay">
+
+  
+  <meta name="description" content="关于异常 引用自《PHP与MySQL程序设计》: 在程序中，随时可能出现意料之外的事件，这些事件称为异常（exception）。通过放一个
+代码段来处理错误，能够对异常妥善地做出响应，这称为抛出异常（throwing the
+exception）。接下来，错误处理代码取得异常的所有权，即捕获异常 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://linkkingjay.github.io/blog/2013/08/10/php-exception">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="linkkingjay's blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">linkkingjay's blog</a></h1>
+  
+    <h2>coding for fun</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:linkkingjay.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
     
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+      <h1 class="entry-title">PHP中的异常</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
 
   
-  <entry>
-    <title type="html"><![CDATA[第一个CodeIgniter应用]]></title>
-    <link href="http://linkkingjay.github.io/blog/2013/09/14/codeigniter-hello-world/"/>
-    <updated>2013-09-14T00:39:00+08:00</updated>
-    <id>http://linkkingjay.github.io/blog/2013/09/14/codeigniter-hello-world</id>
-    <content type="html"><![CDATA[<p><a href="http://ellislab.com/codeigniter">CodeIgniter</a>是一个基于<a href="http://zh.wikipedia.org/wiki/Mvc">MVC</a>的轻量级PHP框架，文档齐全，配置简单，上手容易（据说是抄<a href="http://zh.wikipedia.org/Ruby_on_Rails">ROR</a>的）。</p>
-
-<h3>安装</h3>
-
-<p>可以从<a href="https://github.com/EllisLab/CodeIgniter">Github</a>获取最新代码，或者从CI官网下载压缩包然后解压，把文件放到服务器文件夹中创建一个文件夹<code>ci</code>，把代码全部放到里面。</p>
-
-<h3>URL分配</h3>
-
-<p>假设有这样一个URL：<code>http://example.com/index.php/post/latest/10</code>，实际上它会调用<code>post</code>类的<code>latest</code>方法，并把<code>10</code>作为函数调用的参数，最终再把页面解析显示在用户的浏览器上面。这是CI中常见的URL格式：<code>http://example.com/index.php/[控制器类名]/[控制器方法名]/[参数]</code>。所以，控制器就是CI程序的入口。</p>
-
-<h3>控制器类 Controller</h3>
-
-<p>控制器类的代码放在<code>application/controllers/</code>里面。创建一个控制器文件<code>application/controllers/Hello.php</code>：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
-</span><span class='line'><span class="k">class</span> <span class="nc">Hello</span> <span class="k">extends</span> <span class="nx">CI_Controller</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">index</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">echo</span> <span class="s2">&quot;hello, world&quot;</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
 
 
-<p>然后在浏览器地址栏里输入<code>http://localhost/ci/index.php/hello</code>，就可以看到我们在index方法中<code>echo</code>出来的hello, world了（这里应该可以猜到，如果没有指定方法名，就默认调用index方法）。</p>
-
-<h3>视图类 View</h3>
-
-<p>视图类的代码放在<code>application/views/</code>里面。创建一个视图文件<code>application/views/hello.php</code>：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="cp">&lt;!DOCTYPE html&gt;</span>
-</span><span class='line'><span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'><span class="nt">&lt;head&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;UTF-8&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;title&gt;</span>helloworld<span class="nt">&lt;/title&gt;</span>
-</span><span class='line'><span class="nt">&lt;/head&gt;</span>
-</span><span class='line'><span class="nt">&lt;body&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;h1&gt;</span>hello, world!<span class="nt">&lt;/h1&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;p&gt;</span>I am <span class="cp">&lt;?php echo $name;?&gt;</span>, I am <span class="cp">&lt;?php echo $age;?&gt;</span> years old.<span class="nt">&lt;/p&gt;</span>
-</span><span class='line'><span class="nt">&lt;/body&gt;</span>
-</span><span class='line'><span class="nt">&lt;/html&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
+<time datetime="2013-08-10T10:14:00+08:00" pubdate data-updated="true">Aug 10<span>th</span>, 2013</time>
+        
+         | <a href="#ds-thread">Comments</a>
+        
+      </p>
+    
+  </header>
 
 
-<p>可以看到两段嵌套在HTML代码中的PHP代码，里面输出了两个变量<code>$name</code>和<code>$age</code>，这两个变量在上面并没有定义，那它们是怎么来的呢？看下面：
-修改<code>application/controllers/Hello.php</code>，添加以下方法：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">view</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Link&#39;</span><span class="p">;</span>
-</span><span class='line'>    <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">18</span><span class="p">;</span>
-</span><span class='line'>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load</span><span class="o">-&gt;</span><span class="na">view</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>可以看到我们在<code>view</code>方法中定义了<code>$data</code>数组，里面就有两个键名分别为<code>name</code>和<code>age</code>的值，然后我们执行了<code>$this-&gt;load-&gt;view('hello', $data);</code>这行代码，它会从<code>application/views</code>中寻找名为<code>hello.php</code>的文件，如果文件存在，就会加载这个页面，并把<code>$data</code>数组传递给它，这样我们就可以在<code>view/hello.php</code>中使用<code>$data</code>数组中的值。数组中的每个值都被定义成与它关键字相同的一个变量，如控制器中 <code>$data['name']</code> 的值就等同于视图中变量<code>$name</code>。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[PHP中的异常]]></title>
-    <link href="http://linkkingjay.github.io/blog/2013/08/10/php-exception/"/>
-    <updated>2013-08-10T10:14:00+08:00</updated>
-    <id>http://linkkingjay.github.io/blog/2013/08/10/php-exception</id>
-    <content type="html"><![CDATA[<h4>关于异常</h4>
+<div class="entry-content"><h4>关于异常</h4>
 
 <p>引用自<a href="http://book.douban.com/subject/3693851">《PHP与MySQL程序设计》</a>:</p>
 
@@ -241,54 +234,133 @@ exception）。接下来，错误处理代码取得异常的所有权，即捕�
 <h4>资料</h4>
 
 <p><a href="http://www.php.net/manual/en/class.exception.php">Exception manual</a></p>
-]]></content>
-  </entry>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-  <entry>
-    <title type="html"><![CDATA[《Learning PHP &amp; MySQL》笔记]]></title>
-    <link href="http://linkkingjay.github.io/blog/2013/08/08/learning-php-and-mysql-note/"/>
-    <updated>2013-08-08T12:38:00+08:00</updated>
-    <id>http://linkkingjay.github.io/blog/2013/08/08/learning-php-and-mysql-note</id>
-    <content type="html"><![CDATA[<ol>
-<li><h5>双引号和单引号字符串</h5>
 
-<p>只要用双引号将字符串括起来，可以把一个变量，插入到字符串的定义里：
- &lt;?php
- $my_name = &ldquo;linkkingjay&rdquo;;
- echo &ldquo;My name is $my_name&rdquo;;
- ?></p></li>
-<li><h5>比较字符串</h5>
+<span class="byline author vcard">Posted by <span class="fn">linkkingjay</span></span>
 
-<p><code>strcasecmp(string1, string2)</code>来比较两个字符串，忽略大小写。</p></li>
-<li><h5>函数名是大小写无关的</h5>
+      
 
-<p>这个以前真心不知道。</p></li>
-<li><h5>测试函数是否被定义</h5>
 
-<p><code>function_exists("function_name");</code></p></li>
-<li><h5>var语句声明的变量具有类的范围。</h5>
 
-<p>类的范围意味着这写变量对类内部的所有方法可见，并且可以通过特殊的语法在类的外部被访问。var变量默认是public。
-在类的内部使用方法或变量的时候，必须使用下面的语法：
-<code>$this-&gt;variable or method name;</code></p></li>
-<li><h5>判断一个变量是不是数组</h5>
 
-<p><code>is_array()</code></p></li>
-<li><h5>数组排序</h5>
 
-<code>sort($array, [sort_flag]);</code>
-sort_flag为可选的第二个参数，可能值有：
 
-<ol>
-<li>sort_regular 按通常情况比较元素，但不改变类型</li>
-<li>sort_numeric 按数字比较元素</li>
-<li>sort_string 按字符串比较元素</li>
-<li>sort_locale_string 按本地语言字符串比较元素</li>
-</ol>
-</li>
-</ol>
 
-]]></content>
-  </entry>
+
   
-</feed>
+
+
+<time datetime="2013-08-10T10:14:00+08:00" pubdate data-updated="true">Aug 10<span>th</span>, 2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://linkkingjay.github.io/blog/2013/08/10/php-exception/" data-via="" data-counturl="http://linkkingjay.github.io/blog/2013/08/10/php-exception/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/08/08/learning-php-and-mysql-note/" title="Previous Post: 《Learning PHP &amp; MySQL》笔记">&laquo; 《Learning PHP &amp; MySQL》笔记</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/09/14/codeigniter-hello-world/" title="Next Post: 第一个CodeIgniter应用">第一个CodeIgniter应用 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread"></div>
+<script type="text/javascript">
+    var duoshuoQuery = {short_name:"linkkingjay"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = 'http://static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- Duoshuo Comment END -->
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/09/14/codeigniter-hello-world/">第一个CodeIgniter应用</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/10/php-exception/">PHP中的异常</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/08/learning-php-and-mysql-note/">《Learning PHP &amp; MySQL》笔记</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - linkkingjay -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

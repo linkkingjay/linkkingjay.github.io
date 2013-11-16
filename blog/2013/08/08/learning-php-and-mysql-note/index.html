@@ -1,0 +1,264 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>《Learning PHP &amp; MySQL》笔记 - linkkingjay's blog</title>
+  <meta name="author" content="linkkingjay">
+
+  
+  <meta name="description" content="双引号和单引号字符串 只要用双引号将字符串括起来，可以把一个变量，插入到字符串的定义里： &lt;?php $my_name = &ldquo;linkkingjay&rdquo;; echo &ldquo;My name is $my_name&rdquo;; ?>
+比较字符串 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://linkkingjay.github.io/blog/2013/08/08/learning-php-and-mysql-note">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="linkkingjay's blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">linkkingjay's blog</a></h1>
+  
+    <h2>coding for fun</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:linkkingjay.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">《Learning PHP &amp; MySQL》笔记</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-08T12:38:00+08:00" pubdate data-updated="true">Aug 8<span>th</span>, 2013</time>
+        
+         | <a href="#ds-thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><ol>
+<li><h5>双引号和单引号字符串</h5>
+
+<p>只要用双引号将字符串括起来，可以把一个变量，插入到字符串的定义里：
+ &lt;?php
+ $my_name = &ldquo;linkkingjay&rdquo;;
+ echo &ldquo;My name is $my_name&rdquo;;
+ ?></p></li>
+<li><h5>比较字符串</h5>
+
+<p><code>strcasecmp(string1, string2)</code>来比较两个字符串，忽略大小写。</p></li>
+<li><h5>函数名是大小写无关的</h5>
+
+<p>这个以前真心不知道。</p></li>
+<li><h5>测试函数是否被定义</h5>
+
+<p><code>function_exists("function_name");</code></p></li>
+<li><h5>var语句声明的变量具有类的范围。</h5>
+
+<p>类的范围意味着这写变量对类内部的所有方法可见，并且可以通过特殊的语法在类的外部被访问。var变量默认是public。
+在类的内部使用方法或变量的时候，必须使用下面的语法：
+<code>$this-&gt;variable or method name;</code></p></li>
+<li><h5>判断一个变量是不是数组</h5>
+
+<p><code>is_array()</code></p></li>
+<li><h5>数组排序</h5>
+
+<code>sort($array, [sort_flag]);</code>
+sort_flag为可选的第二个参数，可能值有：
+
+<ol>
+<li>sort_regular 按通常情况比较元素，但不改变类型</li>
+<li>sort_numeric 按数字比较元素</li>
+<li>sort_string 按字符串比较元素</li>
+<li>sort_locale_string 按本地语言字符串比较元素</li>
+</ol>
+</li>
+</ol>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">linkkingjay</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-08T12:38:00+08:00" pubdate data-updated="true">Aug 8<span>th</span>, 2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://linkkingjay.github.io/blog/2013/08/08/learning-php-and-mysql-note/" data-via="" data-counturl="http://linkkingjay.github.io/blog/2013/08/08/learning-php-and-mysql-note/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/08/10/php-exception/" title="Next Post: PHP中的异常">PHP中的异常 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread"></div>
+<script type="text/javascript">
+    var duoshuoQuery = {short_name:"linkkingjay"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = 'http://static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- Duoshuo Comment END -->
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/09/14/codeigniter-hello-world/">第一个CodeIgniter应用</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/10/php-exception/">PHP中的异常</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/08/learning-php-and-mysql-note/">《Learning PHP &amp; MySQL》笔记</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - linkkingjay -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

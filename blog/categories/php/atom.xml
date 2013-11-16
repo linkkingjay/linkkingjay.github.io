@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: php | linkkingjay's blog]]></title>
+  <link href="http://linkkingjay.github.io/blog/categories/php/atom.xml" rel="self"/>
+  <link href="http://linkkingjay.github.io/"/>
+  <updated>2013-11-16T19:57:00+08:00</updated>
+  <id>http://linkkingjay.github.io/</id>
+  <author>
+    <name><![CDATA[linkkingjay]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[第一个CodeIgniter应用]]></title>
+    <link href="http://linkkingjay.github.io/blog/2013/09/14/codeigniter-hello-world/"/>
+    <updated>2013-09-14T00:39:00+08:00</updated>
+    <id>http://linkkingjay.github.io/blog/2013/09/14/codeigniter-hello-world</id>
+    <content type="html"><![CDATA[<p><a href="http://ellislab.com/codeigniter">CodeIgniter</a>是一个基于<a href="http://zh.wikipedia.org/wiki/Mvc">MVC</a>的轻量级PHP框架，文档齐全，配置简单，上手容易（据说是抄<a href="http://zh.wikipedia.org/Ruby_on_Rails">ROR</a>的）。</p>
+
+<h3>安装</h3>
+
+<p>可以从<a href="https://github.com/EllisLab/CodeIgniter">Github</a>获取最新代码，或者从CI官网下载压缩包然后解压，把文件放到服务器文件夹中创建一个文件夹<code>ci</code>，把代码全部放到里面。</p>
+
+<h3>URL分配</h3>
+
+<p>假设有这样一个URL：<code>http://example.com/index.php/post/latest/10</code>，实际上它会调用<code>post</code>类的<code>latest</code>方法，并把<code>10</code>作为函数调用的参数，最终再把页面解析显示在用户的浏览器上面。这是CI中常见的URL格式：<code>http://example.com/index.php/[控制器类名]/[控制器方法名]/[参数]</code>。所以，控制器就是CI程序的入口。</p>
+
+<h3>控制器类 Controller</h3>
+
+<p>控制器类的代码放在<code>application/controllers/</code>里面。创建一个控制器文件<code>application/controllers/Hello.php</code>：
+```php
+&lt;?php
+class Hello extends CI_Controller {</p>
+
+<pre><code>public function index() {
+    echo "hello, world";
+}
+</code></pre>
+
+<p>}
+<code>``
+然后在浏览器地址栏里输入</code><a href="http://localhost/ci/index.php/hello">http://localhost/ci/index.php/hello</a><code>，就可以看到我们在index方法中</code>echo`出来的hello, world了（这里应该可以猜到，如果没有指定方法名，就默认调用index方法）。</p>
+
+<h3>视图类 View</h3>
+
+<p>视图类的代码放在<code>application/views/</code>里面。创建一个视图文件<code>application/views/hello.php</code>：
+```html
+&lt;!DOCTYPE html>
+<html lang="en">
+<head></p>
+
+<pre><code>&lt;meta charset="UTF-8"&gt;
+&lt;title&gt;helloworld&lt;/title&gt;
+</code></pre>
+
+<p></head>
+<body></p>
+
+<pre><code>&lt;h1&gt;hello, world!&lt;/h1&gt;
+&lt;p&gt;I am &lt;?php echo $name;?&gt;, I am &lt;?php echo $age;?&gt; years old.&lt;/p&gt;
+</code></pre>
+
+<p></body>
+</html>
+<code>
+可以看到两段嵌套在HTML代码中的PHP代码，里面输出了两个变量`$name`和`$age`，这两个变量在上面并没有定义，那它们是怎么来的呢？看下面：
+修改`application/controllers/Hello.php`，添加以下方法：
+</code>php
+public function view() {</p>
+
+<pre><code>$data['name'] = 'Link';
+$data['age'] = 18;
+$this-&gt;load-&gt;view('hello', $data);
+</code></pre>
+
+<p>}
+<code>``
+可以看到我们在</code>view<code>方法中定义了</code>$data<code>数组，里面就有两个键名分别为</code>name<code>和</code>age<code>的值，然后我们执行了</code>$this->load->view(&lsquo;hello&rsquo;, $data);<code>这行代码，它会从</code>application/views<code>中寻找名为</code>hello.php<code>的文件，如果文件存在，就会加载这个页面，并把</code>$data<code>数组传递给它，这样我们就可以在</code>view/hello.php<code>中使用</code>$data<code>数组中的值。数组中的每个值都被定义成与它关键字相同的一个变量，如控制器中</code>$data[&lsquo;name&rsquo;]<code>的值就等同于视图中变量</code>$name`。</p>
+]]></content>
+  </entry>
+  
+</feed>
