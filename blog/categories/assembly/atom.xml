@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: assembly | linkkingjay's blog]]></title>
+  <link href="http://linkkingjay.github.io/blog/categories/assembly/atom.xml" rel="self"/>
+  <link href="http://linkkingjay.github.io/"/>
+  <updated>2013-11-16T20:03:39+08:00</updated>
+  <id>http://linkkingjay.github.io/</id>
+  <author>
+    <name><![CDATA[linkkingjay]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[有趣的汇编]]></title>
+    <link href="http://linkkingjay.github.io/blog/2013/11/16/interesting-assembly/"/>
+    <updated>2013-11-16T18:38:00+08:00</updated>
+    <id>http://linkkingjay.github.io/blog/2013/11/16/interesting-assembly</id>
+    <content type="html"><![CDATA[<p>学了半个学期的汇编，虽然老师有点坑，但是还是发现这门课挺有趣的。用的教材是王爽老师的<a href="http://book.douban.com/subject/3037562/">《汇编语言》</a>。在大学期间用过的教材里面算是非常不错的一本书了。折腾了一阵子，装上了dosemu，配好MASM和Debug，就可以在Ubunutu下写汇编了</p>
+
+<hr />
+
+<h3>兴趣</h3>
+
+<p>对汇编感兴趣，不仅是因为听说它的速度快，更是因为我渴望看到程序最底层到底在做什么。我可以看到程序运行时内存的状态，而且我能控制它，小到每一个寄存器的每一位，都在我的掌控之中。我在一层一层揭开计算机的神秘面纱。</p>
+
+<h3>渊源</h3>
+
+<p>回想起来，其实很久以前我就做过修改内存的事情了：小学时候玩仙剑1用金山游侠修改经验值瞬间满级；中学时候玩口袋妖怪用金手指抓到稀有的pm，我就是在那个时候学会十六进制的，有一个地址是用来存放下一个遇到的pm的编号，用两位16进制表示，只要把这个地址改为想要抓的那只pm的编号对应的十六进制就可以遇到这只pm了。</p>
+
+<h3>一个有趣的小问题</h3>
+
+<p>教材上有一个问题，我觉得很有趣：把一个字符串（只由大写字母和小写字母组成）转化为大写（或者小写）。要是让我自己用一个函数来实现这个功能，我可能会这样写：
+```c
+void strupr(char *s)
+{</p>
+
+<pre><code>int i;
+for (i = 0; s[i]; i++) {
+        if (s[i] &gt;= 'a' &amp;&amp; s[i] &lt;= 'z') {
+                    s[i] -= 32;        
+                            }
+            }
+</code></pre>
+
+<p>}
+void strlwr(char *s)
+{</p>
+
+<pre><code>int i;
+for (i = 0; s[i]; i++) {
+        if (s[i] &gt;= 'A' &amp;&amp; s[i] &lt;= 'Z') {
+                    s[i] += 32;        
+                            }
+            }
+</code></pre>
+
+<p>}
+<code>
+思路很简单，对每一个字符判断，若是`a-z`就减去32，转化为大写字母，若是`A-Z`就加上32转化为小写字母，这个程序我大一刚学C语言的时候就写过了。但书中提出了一种更有效的解法，这种解法不需要判断原来的字符是大写还是小写就能实现转化。答案其实很简单，观察一下大写字母和小写字母在ASCII码中的关系就可以知道答案了。举个例子，`a`的ASCII码是97，写成二进制就是01100001，`A`的ASCII码是65，写成二进制就是0100001。观察一下就可以发现，二者只有第五位不同（`a`的第五位是1，`A`的第五位是0）。其实换算成十进制，就是相差了2^5=32。这也解答了我一直以来的疑惑：为什么ASCII码中小写字母不紧跟在大写字母后面？我想这是为加快大小写转换运算的速度吧。因为只有一位不同，所以我们很容易想到用位运算来解决问题，要知道，位运算的速度是很快的。所以大概就可以写出这样的程序：
+</code>c
+void strupr(char *s)
+{</p>
+
+<pre><code>int i;
+for (i = 0; s[i]; i++) {
+        s[i] = s[i] &amp; 0xDF; //
+        0xDF是1101111的十六进制，跟它进行按位与运算能把第5位置为0
+                }
+</code></pre>
+
+<p>}
+void strlwr(char *s)
+{</p>
+
+<pre><code>int i;
+for (i = 0; s[i]; i++) {
+        s[i] = s[i] | 0x20; //
+        0x20是0010000的十六进制，跟它进行按位或运算能把第5位置为1
+                }
+</code></pre>
+
+<p>}
+<code>``
+PS：按位与运算和按位或运算是C语言中的运算符，在汇编中有两条指令</code>and<code>和</code>or`与它们分别对应。</p>
+]]></content>
+  </entry>
+  
+</feed>

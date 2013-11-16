@@ -9,7 +9,7 @@
   <meta name="author" content="linkkingjay">
 
   
-  <meta name="description" content="CodeIgniter是一个基于MVC的轻量级PHP框架，文档齐全，配置简单，上手容易（据说是抄ROR的）。 安装 可以从Github获取最新代码，或者从CI官网下载压缩包然后解压，把文件放到服务器文件夹中创建一个文件夹ci，把代码全部放到里面。 URL分配 假设有这样一个URL：http:// &hellip;">
+  <meta name="description" content="学了半个学期的汇编，虽然老师有点坑，但是还是发现这门课挺有趣的。用的教材是王爽老师的《汇编语言》。在大学期间用过的教材里面算是非常不错的一本书了。折腾了一阵子，装上了dosemu，配好MASM和Debug，就可以在Ubunutu下写汇编了 兴趣 对汇编感兴趣，不仅是因为听说它的速度快， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +66,136 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/11/16/interesting-assembly/">有趣的汇编</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-16T18:38:00+08:00" pubdate data-updated="true">Nov 16<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/11/16/interesting-assembly/#ds-thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>学了半个学期的汇编，虽然老师有点坑，但是还是发现这门课挺有趣的。用的教材是王爽老师的<a href="http://book.douban.com/subject/3037562/">《汇编语言》</a>。在大学期间用过的教材里面算是非常不错的一本书了。折腾了一阵子，装上了dosemu，配好MASM和Debug，就可以在Ubunutu下写汇编了</p>
+
+<hr />
+
+<h3>兴趣</h3>
+
+<p>对汇编感兴趣，不仅是因为听说它的速度快，更是因为我渴望看到程序最底层到底在做什么。我可以看到程序运行时内存的状态，而且我能控制它，小到每一个寄存器的每一位，都在我的掌控之中。我在一层一层揭开计算机的神秘面纱。</p>
+
+<h3>渊源</h3>
+
+<p>回想起来，其实很久以前我就做过修改内存的事情了：小学时候玩仙剑1用金山游侠修改经验值瞬间满级；中学时候玩口袋妖怪用金手指抓到稀有的pm，我就是在那个时候学会十六进制的，有一个地址是用来存放下一个遇到的pm的编号，用两位16进制表示，只要把这个地址改为想要抓的那只pm的编号对应的十六进制就可以遇到这只pm了。</p>
+
+<h3>一个有趣的小问题</h3>
+
+<p>教材上有一个问题，我觉得很有趣：把一个字符串（只由大写字母和小写字母组成）转化为大写（或者小写）。要是让我自己用一个函数来实现这个功能，我可能会这样写：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">void</span> <span class="nf">strupr</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="sc">&#39;a&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="sc">&#39;z&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                        <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">32</span><span class="p">;</span>
+</span><span class='line'>                                <span class="p">}</span>
+</span><span class='line'>                <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="kt">void</span> <span class="nf">strlwr</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="sc">&#39;A&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="sc">&#39;Z&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                        <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">32</span><span class="p">;</span>
+</span><span class='line'>                                <span class="p">}</span>
+</span><span class='line'>                <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>思路很简单，对每一个字符判断，若是<code>a-z</code>就减去32，转化为大写字母，若是<code>A-Z</code>就加上32转化为小写字母，这个程序我大一刚学C语言的时候就写过了。但书中提出了一种更有效的解法，这种解法不需要判断原来的字符是大写还是小写就能实现转化。答案其实很简单，观察一下大写字母和小写字母在ASCII码中的关系就可以知道答案了。举个例子，<code>a</code>的ASCII码是97，写成二进制就是01100001，<code>A</code>的ASCII码是65，写成二进制就是0100001。观察一下就可以发现，二者只有第五位不同（<code>a</code>的第五位是1，<code>A</code>的第五位是0）。其实换算成十进制，就是相差了2<sup>5</sup>=32。这也解答了我一直以来的疑惑：为什么ASCII码中小写字母不紧跟在大写字母后面？我想这是为加快大小写转换运算的速度吧。因为只有一位不同，所以我们很容易想到用位运算来解决问题，要知道，位运算的速度是很快的。所以大概就可以写出这样的程序：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">void</span> <span class="nf">strupr</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mh">0xDF</span><span class="p">;</span> <span class="c1">//</span>
+</span><span class='line'>            <span class="mh">0xDF</span><span class="err">是</span><span class="mi">1101111</span><span class="err">的十六进制，跟它进行按位与运算能把第</span><span class="mi">5</span><span class="err">位置为</span><span class="mi">0</span>
+</span><span class='line'>                    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="kt">void</span> <span class="nf">strlwr</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">|</span> <span class="mh">0x20</span><span class="p">;</span> <span class="c1">//</span>
+</span><span class='line'>            <span class="mh">0x20</span><span class="err">是</span><span class="mo">0010000</span><span class="err">的十六进制，跟它进行按位或运算能把第</span><span class="mi">5</span><span class="err">位置为</span><span class="mi">1</span>
+</span><span class='line'>                    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>PS：按位与运算和按位或运算是C语言中的运算符，在汇编中有两条指令<code>and</code>和<code>or</code>与它们分别对应。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -443,6 +573,10 @@ sort_flag为可选的第二个参数，可能值有：
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/11/16/interesting-assembly/">有趣的汇编</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/09/14/codeigniter-hello-world/">第一个CodeIgniter应用</a>
