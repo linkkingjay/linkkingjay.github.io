@@ -4,7 +4,7 @@
   <title><![CDATA[Category: assembly | linkkingjay's blog]]></title>
   <link href="http://linkkingjay.github.io/blog/categories/assembly/atom.xml" rel="self"/>
   <link href="http://linkkingjay.github.io/"/>
-  <updated>2013-11-16T20:03:39+08:00</updated>
+  <updated>2013-11-17T12:03:10+08:00</updated>
   <id>http://linkkingjay.github.io/</id>
   <author>
     <name><![CDATA[linkkingjay]]></name>
@@ -39,10 +39,10 @@ void strupr(char *s)
 
 <pre><code>int i;
 for (i = 0; s[i]; i++) {
-        if (s[i] &gt;= 'a' &amp;&amp; s[i] &lt;= 'z') {
-                    s[i] -= 32;        
-                            }
-            }
+    if (s[i] &gt;= 'a' &amp;&amp; s[i] &lt;= 'z') {
+        s[i] -= 32;        
+    }
+}
 </code></pre>
 
 <p>}
@@ -51,10 +51,10 @@ void strlwr(char *s)
 
 <pre><code>int i;
 for (i = 0; s[i]; i++) {
-        if (s[i] &gt;= 'A' &amp;&amp; s[i] &lt;= 'Z') {
-                    s[i] += 32;        
-                            }
-            }
+    if (s[i] &gt;= 'A' &amp;&amp; s[i] &lt;= 'Z') {
+        s[i] += 32;        
+    }
+}
 </code></pre>
 
 <p>}
@@ -66,9 +66,8 @@ void strupr(char *s)
 
 <pre><code>int i;
 for (i = 0; s[i]; i++) {
-        s[i] = s[i] &amp; 0xDF; //
-        0xDF是1101111的十六进制，跟它进行按位与运算能把第5位置为0
-                }
+    s[i] = s[i] &amp; 0xDF; // 0xDF是1101111的十六进制，跟它进行按位与运算能把第5位置为0
+}
 </code></pre>
 
 <p>}
@@ -77,9 +76,8 @@ void strlwr(char *s)
 
 <pre><code>int i;
 for (i = 0; s[i]; i++) {
-        s[i] = s[i] | 0x20; //
-        0x20是0010000的十六进制，跟它进行按位或运算能把第5位置为1
-                }
+    s[i] = s[i] | 0x20; // 0x20是0010000的十六进制，跟它进行按位或运算能把第5位置为1
+}
 </code></pre>
 
 <p>}
