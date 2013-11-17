@@ -164,7 +164,7 @@ sort_flag为可选的第二个参数，可能值有：
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://linkkingjay.github.io/blog/2013/08/08/learning-php-and-mysql-note/" data-via="" data-counturl="http://linkkingjay.github.io/blog/2013/08/08/learning-php-and-mysql-note/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://linkkingjay.github.io/blog/2013/08/08/learning-php-and-mysql-note/" data-via="linkkingjay" data-counturl="http://linkkingjay.github.io/blog/2013/08/08/learning-php-and-mysql-note/" >Tweet</a>
   
   
   
@@ -224,6 +224,35 @@ sort_flag为可选的第二个参数，可能值有：
       </li>
     
   </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/linkkingjay">@linkkingjay</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'linkkingjay',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
 </section>
 
 
