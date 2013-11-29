@@ -9,7 +9,14 @@
   <meta name="author" content="linkkingjay">
 
   
-  <meta name="description" content="学了半个学期的汇编，虽然老师有点坑，但是还是发现这门课挺有趣的。用的教材是王爽老师的《汇编语言》。在大学期间用过的教材里面算是非常不错的一本书了。折腾了一阵子，装上了dosemu，配好MASM和Debug，就可以在Ubunutu下写汇编了 兴趣 对汇编感兴趣，不仅是因为听说它的速度快， &hellip;">
+  <meta name="description" content="Wiki Ruby
+是一种面向对象、命令式、函数式、动态的通用编程语言。在20世纪90年代中期由日本人松本行弘设计并开发。 一切都是对象 Ruby是一门基于类的纯面向对象的编程语言，在Ruby中，一切都是对象，在终端里输入irb，进入Ruby的交互命令行，做以下实验： 1
+2
+3
+4
+5
+6
+7 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +73,339 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/11/29/ruby/">《七周七语言》之Ruby</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-29T08:40:00+08:00" pubdate data-updated="true">Nov 29<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/11/29/ruby/#ds-thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><blockquote><h3>Wiki</h3>
+
+<p>Ruby
+是一种面向对象、命令式、函数式、动态的通用编程语言。在20世纪90年代中期由日本人松本行弘设计并开发。</p></blockquote>
+
+<h2>一切都是对象</h2>
+
+<p>Ruby是一门基于类的纯面向对象的编程语言，在Ruby中，一切都是对象，在终端里输入irb，进入Ruby的交互命令行，做以下实验：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&gt;&gt;</span> <span class="mi">3</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="mi">3</span>
+</span><span class='line'><span class="o">&gt;&gt;</span> <span class="mi">3</span><span class="o">.</span><span class="n">class</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="no">Fixnum</span>
+</span><span class='line'><span class="o">&gt;&gt;</span> <span class="no">Fixnum</span><span class="o">.</span><span class="n">class</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="no">Class</span>
+</span><span class='line'><span class="o">&gt;&gt;</span> <span class="no">Class</span><span class="o">.</span><span class="n">class</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="no">Class</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以看到，3这个数字是Fixnum类的一个对象，而输入Fixnum.class，输出Class，输入Class.class，输出的也是Class。这说明<strong>类本身也是一个对象</strong>，Fixnum和Class都是Class类的一个对象。好像有点拗口，但事实就是这样。</p>
+
+<h2>Ruby中的白魔法</h2>
+
+<p>Ruby的理念是<strong>减少编程时候的不必要的琐碎时间，令编写程序的人高兴，是设计Ruby语言的Matz的一个首要的考虑；其次是良好的界面设计。他强调系统设计必须强调人性化，而不是一味从机器的角度设想。</strong>因此，Ruby中不乏各种方便实用的特性。我把它们称作白魔法，因为它总是对人有用的。</p>
+
+<h3>代码块和迭代器</h3>
+
+<p>代码块顾名思义就是一块代码，有两种写法：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># 写在一行里的代码块</span>
+</span><span class='line'><span class="p">{</span><span class="nb">puts</span> <span class="s2">&quot;hello, world&quot;</span><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># 多行代码块</span>
+</span><span class='line'><span class="k">do</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;hello, world&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;I am block&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">#代码块经常跟迭代器结合使用，比如我们要把一个集合中的元素都输出出来：</span>
+</span><span class='line'><span class="o">[</span><span class="s2">&quot;Ruby&quot;</span><span class="p">,</span> <span class="s2">&quot;Io&quot;</span><span class="p">,</span> <span class="s2">&quot;Prolog&quot;</span><span class="p">,</span> <span class="s2">&quot;Scala&quot;</span><span class="p">,</span> <span class="s2">&quot;Erlang&quot;</span><span class="p">,</span> <span class="s2">&quot;Clojure&quot;</span><span class="p">,</span> <span class="s2">&quot;Haskell&quot;</span><span class="o">].</span><span class="n">each</span> <span class="p">{</span><span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="nb">puts</span> <span class="n">x</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>所谓迭代器，其实是一些实例方法，大部分定义在集合（<a href="http://ruby-doc.org/core-2.0.0/Enumerable.html">Enumerable</a>）这个模块（module）里，而包含这个模块的类就都有这些方法了（比如Array，
+Hash，Enumerator等等）。比如上面最后一行代码中的<code>each</code><sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup>就是一个迭代器（）。常见的迭代器还有<a href="http://ruby-doc.org/core-2.0.0/Enumerable.html#method-i-all-3F"><code>all</code></a>，<a href="http://ruby-doc.org/core-2.0.0/Enumerable.html#method-i-any-3F"><code>any</code></a>……</p>
+
+<p>迭代器一般结合代码块使用，在迭代器中可以调用代码块中的代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># all把集合中的每个元素传给代码块，如果每次代码块都返回真，结果为真，否则为假</span>
+</span><span class='line'><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">].</span><span class="n">all?</span> <span class="p">{</span><span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">}</span> <span class="c1">#=&gt; true</span>
+</span><span class='line'><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">].</span><span class="n">all?</span> <span class="p">{</span><span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">}</span> <span class="c1">#=&gt; false</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># any把集合中的每个元素传给代码块，如果有一次结果为真，结果就为真，否则为假</span>
+</span><span class='line'><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">].</span><span class="n">any?</span> <span class="p">{</span><span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">}</span> <span class="c1">#=&gt; true </span>
+</span><span class='line'><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">].</span><span class="n">any?</span> <span class="p">{</span><span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">}</span> <span class="c1">#=&gt; false</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>方法中的<code>yield</code>可以调用代码块，举个例子：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># 三次调用代码块</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">triple</span>
+</span><span class='line'>    <span class="mi">3</span><span class="o">.</span><span class="n">times</span> <span class="p">{</span><span class="k">yield</span><span class="p">}</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">triple</span> <span class="p">{</span><span class="nb">puts</span> <span class="s2">&quot;hello, yield&quot;</span><span class="p">}</span> <span class="c1"># 输出三行&quot;hello, yield&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>语法糖</h3>
+
+<p>语法糖指的是编程语言中的某一种语法，对功能的实现的影响，但更方便程序员使用，比如C语言中<code>A[n]</code>用<code>*(A + n)</code>就可以表示了，但是添加了<code>A[n]</code>这个写法，写起来更方便，而且也增加了程序的可读性，它就是一个<a href="http://zh.wikipedia.org/wiki/%E8%AF%AD%E6%B3%95%E7%B3%96">语法糖</a>。Ruby中有很多方便程序员使用的语法糖：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># 条件语句</span>
+</span><span class='line'><span class="k">if</span> <span class="kp">true</span>
+</span><span class='line'>   <span class="nb">puts</span> <span class="s2">&quot;Ruby is interesting&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># 等同于</span>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Ruby is interesting&quot;</span> <span class="k">if</span> <span class="kp">true</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># unless是“如果不”的意思，可以等价于if not</span>
+</span><span class='line'><span class="n">a</span> <span class="o">=</span> <span class="o">[-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span>
+</span><span class='line'><span class="n">a</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span><span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="nb">puts</span> <span class="n">x</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">}</span> <span class="c1">#=&gt; 0, 1, 2</span>
+</span><span class='line'><span class="n">a</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span><span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="nb">puts</span> <span class="n">x</span> <span class="k">unless</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">}</span> <span class="c1">#=&gt; 0, 1, 2</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Range</span>
+</span><span class='line'><span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span><span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="nb">print</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">x</span><span class="o">|</span> <span class="s2">&quot;=&gt; 输出1到10</span>
+</span><span class='line'><span class="s2">(&#39;a&#39;..&#39;z&#39;).each {|c| print &quot;</span><span class="c1">#{c} &quot;} #=&gt; 输出所有小写字母</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># 方法中如果没有return，则返回最后一行的值</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Ruby中的黑魔法</h2>
+
+<p>书中第三天的标题是<strong>重大改变</strong>，这一节讲到了Ruby最重要的一个能力：<strong>元编程</strong>。简单来说，<strong>元编程就是写出编写代码的代码</strong>。元编程是很强大的能力，但是能力越大，责任越大。使用元编程，可以更好的发挥语言的威力，但是如果使用不当，可能会把事情弄得一团糟。</p>
+
+<h3>开放类</h3>
+
+<p>开放类这个特性允许我们随时改变类的定义，常用于给类添加行为。我们看这一段代码（来自Rails框架）：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">NilClass</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">blank?</span>
+</span><span class='line'>        <span class="n">trur</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">String</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">blank?</span>
+</span><span class='line'>        <span class="nb">self</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">[</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;person&quot;</span><span class="p">,</span> <span class="kp">nil</span><span class="o">].</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">element</span><span class="o">|</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="n">element</span> <span class="k">unless</span> <span class="n">element</span><span class="o">.</span><span class="n">blank?</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>写习惯其他基于类的面向对象编程语言的同学看到这段代码，可能会理解为定义了两个类<code>NIlClass和String</code>，并在其中都定义了自己的<code>blank?</code>方法。但在Ruby中不是这样的。事实上，上面的两个类都已经定义过了，所以当我们再使用<code>class</code>这个关键字的时候，会打开这个类，并修改它，而不是重新定义。这个方法可以帮助我们更快地判断一个字符串的状态，主要是用来区分空字符串和nil<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup>这两种状态。</p>
+
+<h3>幽灵方法</h3>
+
+<p>当我们调用一个不存在的方法的时候：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">People</span><span class="p">;</span> <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">Link</span> <span class="o">=</span> <span class="no">People</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'><span class="no">Link</span><span class="o">.</span><span class="n">fly</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>会有这样的错误:
+<code>NoMethodError: undefined method 'fly' for #&lt;People0x000000001f10af8&gt;</code></p>
+
+<p>其实，这样的错误，是由一个名为<code>method_missing()</code>的方法抛出的。当我们调用不存在的方法的时候，调用这个方法的对象就会调用<code>method_missing()</code>方法。结合上面的开放类，我们就可以实现幽灵方法了。</p>
+
+<p>所谓幽灵方法，就是事实上不存在的方法，但是我们可以调用它。有一个来自<strong>OpenStruct</strong><sup id="fnref:3"><a href="#fn:3" rel="footnote">3</a></sup>的例子：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;ostruct&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">icecraem</span> <span class="o">=</span> <span class="no">OpenStruct</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'><span class="n">icecraem</span><span class="o">.</span><span class="n">flavor</span> <span class="o">=</span> <span class="s2">&quot;strawberry&quot;</span>
+</span><span class='line'><span class="n">icecraem</span><span class="o">.</span><span class="n">flavor</span> <span class="c1"># =&gt; &quot;strawberry&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>看起来是不是很神奇？一个OpenStruct对象的属性用起来就像是Ruby的变量。如果想要一个新属性，那么只需要给它赋个值就行了。其实，一个OpenStruct对象的属性的背后是一个幽灵方法。</p>
+
+<p>当我们调用一个方法名以&#8217;=&lsquo;结尾的不存在的方法的时候（如<code>icecream.flavor = "strawberry"</code>），就会调用<code>method_missing</code>方法，并把调用的方法名以及参数也传递给<code>method_missing</code>方法，然后，<code>method_missing</code>方法就对它处理，把方法名后面的&rsquo;=&lsquo;去掉，就获得了属性名，然后把属性名和对应的值存放在一个哈希表里。这一步看起来就像是赋值操作。</p>
+
+<p>当我们调用一个方法名不以&#8217;=&lsquo;结尾的不存在的方法的时候（如<code>icecream.flavor</code>），也会调用<code>method_missing</code>方法，同样地把方法名传递给它（这里没有参数了），然后，<code>method_missing</code>就会在哈希表中查找对应的方法名，然后返回相应的值。</p>
+
+<p>如果不考虑错误处理，大概可以这样实现OpenStruct类：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">MyOpenStruct</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">initialize</span>
+</span><span class='line'>        <span class="vi">@attributes</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">method_missing</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">attribute</span> <span class="o">=</span> <span class="nb">name</span><span class="o">.</span><span class="n">to_s</span>
+</span><span class='line'>        <span class="k">if</span> <span class="n">attribute</span> <span class="o">=~</span> <span class="sr">/=$/</span>
+</span><span class='line'>            <span class="vi">@attributes</span><span class="o">[</span><span class="n">attribute</span><span class="o">.</span><span class="n">chop</span><span class="o">]</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+</span><span class='line'>        <span class="k">else</span>
+</span><span class='line'>            <span class="vi">@attributes</span><span class="o">[</span><span class="n">attribute</span><span class="o">]</span>
+</span><span class='line'>        <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>总结</h2>
+
+<p>Ruby这个语言给了我很大惊喜，第一次感觉这么清晰地理解一门语言的运作方式。过去一周，我没有刻意去关注它的语法，而是看到了再查一下手册，倒也没觉得有什么不合理的地方，时间主要是花在理解Ruby的面向对象和元编程上面。在这个问题上，《Ruby元编程》这本书给了我很大帮助。</p>
+
+<h2>参考资料</h2>
+
+<ul>
+<li><a href="http://book.douban.com/subject/10555435">《七周七语言 理解多种编程范型》</a></li>
+<li><a href="http://book.douban.com/subject/7056800">《Ruby元编程》</a>：很好的一本书，把Ruby的面向对象和元编程写得很清楚，而且很容易看懂，读到一半，准备读完它。</li>
+<li><a href="http://book.douban.com/subject/3329887">《Ruby编程语言》</a>：当语法书来用。</li>
+<li><a href="http://book.douban.com/subject/2032343">《Programming Ruby》</a>：大部头，只看了第一章，概括性地介绍了一下Ruby，后半本书是手册，或许可以买一本来放在案头。</li>
+<li><a href="http://book.douban.com/subject/4888652/">《Web开发敏捷之道——应用Rails进行敏捷Web开发》</a>：也是只看了第一章，稍微了解一下Rails。</li>
+</ul>
+
+
+<p><em>PS：上面几本书图书馆都有，壮哉我大广工！</em></p>
+<div class="footnotes">
+<hr/>
+<ol>
+<li id="fn:1">
+<p>Enumerable这个模块里面没有each方法，而在Array、Hash中都有自己的each方法，这个我很疑惑。<a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
+<li id="fn:2">
+<p>在Ruby中，nil相当于其他语言中的null<a href="#fnref:2" rev="footnote">&#8617;</a></p></li>
+<li id="fn:3">
+<p>OpenStruct类来自Ruby标准库<a href="#fnref:3" rev="footnote">&#8617;</a></p></li>
+</ol>
+</div>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -394,6 +734,10 @@ sort_flag为可选的第二个参数，可能值有：
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/11/29/ruby/">《七周七语言》之Ruby</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/11/16/interesting-assembly/">有趣的汇编</a>
