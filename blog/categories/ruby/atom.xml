@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ruby | linkkingjay's blog]]></title>
   <link href="http://linkkingjay.github.io/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://linkkingjay.github.io/"/>
-  <updated>2013-11-29T18:26:10+08:00</updated>
+  <updated>2013-12-05T23:39:51+08:00</updated>
   <id>http://linkkingjay.github.io/</id>
   <author>
     <name><![CDATA[linkkingjay]]></name>
@@ -20,8 +20,7 @@
     <id>http://linkkingjay.github.io/blog/2013/11/29/ruby</id>
     <content type="html"><![CDATA[<blockquote><h3>Wiki</h3>
 
-<p>Ruby
-是一种面向对象、命令式、函数式、动态的通用编程语言。在20世纪90年代中期由日本人松本行弘设计并开发。</p></blockquote>
+<p>Ruby是一种面向对象、命令式、函数式、动态的通用编程语言。在20世纪90年代中期由日本人松本行弘设计并开发。</p></blockquote>
 
 <h2>一切都是对象</h2>
 
