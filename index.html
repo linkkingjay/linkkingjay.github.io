@@ -9,7 +9,7 @@
   <meta name="author" content="linkkingjay">
 
   
-  <meta name="description" content="Wiki Io语言是一门计算机高级编程语言，其发展历史并不长，2002年3月7日由Steve Dekorte研发出来。Io语言因为没有关键字，因而很容易进行扩展，并很灵活。Io language并非主流编程语言，但其学习价值和启发价值都很高。这门语言吸收了LISP、Lua、 &hellip;">
+  <meta name="description" content="数学中有一种很美的图形图形叫做分形图形，谢尔宾斯基三角形就是一种很有名的分形图形。 它是这样实现的，把一个三角形分成4等份，挖掉中间的一份，然后继续对另外3个三角形进行这样的操作，并且一直递归下去。 试用了一下 HTML5 的 canvas 标签以及一些API，我把谢尔宾斯基三角形画出来了。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +66,149 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/03/04/sierpinski/">谢尔宾斯基三角形</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-04T14:51:00+08:00" pubdate data-updated="true">Mar 4<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/03/04/sierpinski/#ds-thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>数学中有一种很美的图形图形叫做分形图形，谢尔宾斯基三角形就是一种很有名的分形图形。</p>
+
+<p>它是这样实现的，把一个三角形分成4等份，挖掉中间的一份，然后继续对另外3个三角形进行这样的操作，并且一直递归下去。</p>
+
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Sierpinski_triangle_evolution.svg/512px-Sierpinski_triangle_evolution.svg.png" alt="sierpinski" /></p>
+
+<p>试用了一下 HTML5 的 canvas 标签以及一些API，我把谢尔宾斯基三角形画出来了。思路很简单：首先画一个正立的等边三角形，用黑色填充，然后每次计算出下一次要进行挖空的三角形的坐标，画出一个倒立的等边三角形，用白色填充。用<code>setTimeout</code>函数设置一下延迟，就能看到变化的效果了。要注意的一点是，如果不做终止处理，就会无限递归下去，最后导致暴栈，所以我这里的终止条件是当要处理的三角形的边长小于2个像素。</p>
+
+<ul>
+<li>演示页面： <a href="http://link.chinacloudapp.cn/demo/sierpinski">http://link.chinacloudapp.cn/demo/sierpinski</a></li>
+<li>代码：</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">setup</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;canvas&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">ctx</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s1">&#39;2d&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">300</span><span class="p">;</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="mi">300</span><span class="p">;</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">size</span> <span class="o">=</span> <span class="mi">600</span><span class="p">;</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">depth</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">drawBasicTriangle</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">size</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">ctx</span><span class="p">.</span><span class="nx">fillStyle</span> <span class="o">=</span> <span class="s2">&quot;white&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">draw</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">size</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">function</span> <span class="nx">draw</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">size</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nx">size</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span>
+</span><span class='line'>            <span class="k">return</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">offset</span> <span class="o">=</span> <span class="nx">size</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">ctx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+</span><span class='line'>        <span class="nx">ctx</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="nx">x</span> <span class="o">-</span> <span class="nx">size</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">ctx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span> <span class="o">+</span> <span class="nx">offset</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">ctx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">x</span> <span class="o">+</span> <span class="nx">size</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">ctx</span><span class="p">.</span><span class="nx">fill</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nx">draw</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span> <span class="o">-</span> <span class="nx">offset</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
+</span><span class='line'>            <span class="nx">draw</span><span class="p">(</span><span class="nx">x</span> <span class="o">-</span> <span class="nx">size</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">y</span> <span class="o">+</span> <span class="nx">offset</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
+</span><span class='line'>            <span class="nx">draw</span><span class="p">(</span><span class="nx">x</span> <span class="o">+</span> <span class="nx">size</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">y</span> <span class="o">+</span> <span class="nx">offset</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">size</span> <span class="o">/</span><span class="mi">2</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">function</span> <span class="nx">drawBasicTriangle</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">offset</span> <span class="o">=</span> <span class="nx">size</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">ctx</span><span class="p">.</span><span class="nx">fillStyle</span> <span class="o">=</span> <span class="s2">&quot;black&quot;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nx">ctx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+</span><span class='line'>        <span class="nx">ctx</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span> <span class="o">-</span> <span class="nx">offset</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">ctx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">x</span> <span class="o">+</span> <span class="nx">size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">y</span> <span class="o">+</span> <span class="nx">offset</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">ctx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">x</span> <span class="o">-</span> <span class="nx">size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">y</span> <span class="o">+</span> <span class="nx">offset</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">ctx</span><span class="p">.</span><span class="nx">fill</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">setup</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -845,7 +988,7 @@ Hash，Enumerator等等）。比如上面最后一行代码中的<code>each</cod
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/08/08/learning-php-and-mysql-note/">《Learning PHP &amp; MySQL》笔记</a></h1>
+      <h1 class="entry-title"><a href="/blog/2013/08/08/hello/">Hello Octopress</a></h1>
     
     
       <p class="meta">
@@ -861,54 +1004,16 @@ Hash，Enumerator等等）。比如上面最后一行代码中的<code>each</cod
   
 
 
-<time datetime="2013-08-08T12:38:00+08:00" pubdate data-updated="true">Aug 8<span>th</span>, 2013</time>
+<time datetime="2013-08-08T00:30:00+08:00" pubdate data-updated="true">Aug 8<span>th</span>, 2013</time>
         
-         | <a href="/blog/2013/08/08/learning-php-and-mysql-note/#ds-thread">Comments</a>
+         | <a href="/blog/2013/08/08/hello/#ds-thread">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><ol>
-<li><h5>双引号和单引号字符串</h5>
-
-<p>只要用双引号将字符串括起来，可以把一个变量，插入到字符串的定义里：
- &lt;?php
- $my_name = &ldquo;linkkingjay&rdquo;;
- echo &ldquo;My name is $my_name&rdquo;;
- ?></p></li>
-<li><h5>比较字符串</h5>
-
-<p><code>strcasecmp(string1, string2)</code>来比较两个字符串，忽略大小写。</p></li>
-<li><h5>函数名是大小写无关的</h5>
-
-<p>这个以前真心不知道。</p></li>
-<li><h5>测试函数是否被定义</h5>
-
-<p><code>function_exists("function_name");</code></p></li>
-<li><h5>var语句声明的变量具有类的范围。</h5>
-
-<p>类的范围意味着这写变量对类内部的所有方法可见，并且可以通过特殊的语法在类的外部被访问。var变量默认是public。
-在类的内部使用方法或变量的时候，必须使用下面的语法：
-<code>$this-&gt;variable or method name;</code></p></li>
-<li><h5>判断一个变量是不是数组</h5>
-
-<p><code>is_array()</code></p></li>
-<li><h5>数组排序</h5>
-
-<code>sort($array, [sort_flag]);</code>
-sort_flag为可选的第二个参数，可能值有：
-
-<ol>
-<li>sort_regular 按通常情况比较元素，但不改变类型</li>
-<li>sort_numeric 按数字比较元素</li>
-<li>sort_string 按字符串比较元素</li>
-<li>sort_locale_string 按本地语言字符串比较元素</li>
-</ol>
-</li>
-</ol>
-
+  <div class="entry-content">
 </div>
   
   
@@ -929,6 +1034,10 @@ sort_flag为可选的第二个参数，可能值有：
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/03/04/sierpinski/">谢尔宾斯基三角形</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/12/05/io/">《七周七语言》之Io</a>
       </li>
     
@@ -942,10 +1051,6 @@ sort_flag为可选的第二个参数，可能值有：
     
       <li class="post">
         <a href="/blog/2013/09/14/codeigniter-hello-world/">第一个CodeIgniter应用</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/08/08/learning-php-and-mysql-note/">《Learning PHP &amp; MySQL》笔记</a>
       </li>
     
   </ul>
@@ -990,7 +1095,7 @@ sort_flag为可选的第二个参数，可能值有：
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - linkkingjay -
+  Copyright &copy; 2014 - linkkingjay -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

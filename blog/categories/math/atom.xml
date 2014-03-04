@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: math | linkkingjay's blog]]></title>
+  <link href="http://linkkingjay.github.io/blog/categories/math/atom.xml" rel="self"/>
+  <link href="http://linkkingjay.github.io/"/>
+  <updated>2014-03-04T15:09:45+08:00</updated>
+  <id>http://linkkingjay.github.io/</id>
+  <author>
+    <name><![CDATA[linkkingjay]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[谢尔宾斯基三角形]]></title>
+    <link href="http://linkkingjay.github.io/blog/2014/03/04/sierpinski/"/>
+    <updated>2014-03-04T14:51:00+08:00</updated>
+    <id>http://linkkingjay.github.io/blog/2014/03/04/sierpinski</id>
+    <content type="html"><![CDATA[<p>数学中有一种很美的图形图形叫做分形图形，谢尔宾斯基三角形就是一种很有名的分形图形。</p>
+
+<p>它是这样实现的，把一个三角形分成4等份，挖掉中间的一份，然后继续对另外3个三角形进行这样的操作，并且一直递归下去。</p>
+
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Sierpinski_triangle_evolution.svg/512px-Sierpinski_triangle_evolution.svg.png" alt="sierpinski" /></p>
+
+<p>试用了一下 HTML5 的 canvas 标签以及一些API，我把谢尔宾斯基三角形画出来了。思路很简单：首先画一个正立的等边三角形，用黑色填充，然后每次计算出下一次要进行挖空的三角形的坐标，画出一个倒立的等边三角形，用白色填充。用<code>setTimeout</code>函数设置一下延迟，就能看到变化的效果了。要注意的一点是，如果不做终止处理，就会无限递归下去，最后导致暴栈，所以我这里的终止条件是当要处理的三角形的边长小于2个像素。</p>
+
+<ul>
+<li>演示页面： <a href="http://link.chinacloudapp.cn/demo/sierpinski">http://link.chinacloudapp.cn/demo/sierpinski</a></li>
+<li>代码：</li>
+</ul>
+
+
+<p>```javascript
+function setup() {</p>
+
+<pre><code>var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+
+var x = 300;
+var y = 300;
+var size = 600;
+var depth = 10;
+
+drawBasicTriangle(x, y, size);
+
+ctx.fillStyle = "white";
+draw(x, y, size);
+
+function draw(x, y, size) {
+    if (size &lt; 2)
+        return;
+
+    var offset = size / 4 * Math.sqrt(3);
+    ctx.beginPath();
+    ctx.moveTo(x - size / 4, y);
+    ctx.lineTo(x, y + offset);
+    ctx.lineTo(x + size / 4, y);
+    ctx.fill();
+
+    setTimeout(function () {
+        draw(x, y - offset / 2, size / 2);
+        draw(x - size / 4, y + offset / 2, size / 2);
+        draw(x + size / 4, y + offset / 2, size /2);
+    }, 1000);
+}
+
+function drawBasicTriangle () {
+    var offset = size / 4 * Math.sqrt(3);
+    ctx.fillStyle = "black";
+
+    ctx.beginPath();
+    ctx.moveTo(x, y - offset);
+    ctx.lineTo(x + size / 2, y + offset);
+    ctx.lineTo(x - size / 2, y + offset);
+    ctx.fill();
+}
+</code></pre>
+
+<p>}</p>
+
+<p>setup();
+```</p>
+]]></content>
+  </entry>
+  
+</feed>
