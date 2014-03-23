@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ruby | linkkingjay's blog]]></title>
   <link href="http://linkkingjay.github.io/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://linkkingjay.github.io/"/>
-  <updated>2014-03-04T15:09:45+08:00</updated>
+  <updated>2014-03-23T19:17:45+08:00</updated>
   <id>http://linkkingjay.github.io/</id>
   <author>
     <name><![CDATA[linkkingjay]]></name>
@@ -233,14 +233,12 @@ end
 
 <ul>
 <li><a href="http://book.douban.com/subject/10555435">《七周七语言 理解多种编程范型》</a></li>
-<li><a href="http://book.douban.com/subject/7056800">《Ruby元编程》</a>：很好的一本书，把Ruby的面向对象和元编程写得很清楚，而且很容易看懂，读到一半，准备读完它。</li>
-<li><a href="http://book.douban.com/subject/3329887">《Ruby编程语言》</a>：当语法书来用。</li>
-<li><a href="http://book.douban.com/subject/2032343">《Programming Ruby》</a>：大部头，只看了第一章，概括性地介绍了一下Ruby，后半本书是手册，或许可以买一本来放在案头。</li>
-<li><a href="http://book.douban.com/subject/4888652/">《Web开发敏捷之道——应用Rails进行敏捷Web开发》</a>：也是只看了第一章，稍微了解一下Rails。</li>
+<li><a href="http://book.douban.com/subject/7056800">《Ruby元编程》</a></li>
+<li><a href="http://book.douban.com/subject/3329887">《Ruby编程语言》</a></li>
+<li><a href="http://book.douban.com/subject/2032343">《Programming Ruby》</a></li>
+<li><a href="http://book.douban.com/subject/4888652/">《Web开发敏捷之道——应用Rails进行敏捷Web开发》</a></li>
 </ul>
 
-
-<p><em>PS：上面几本书图书馆都有，壮哉我大广工！</em></p>
 <div class="footnotes">
 <hr/>
 <ol>
